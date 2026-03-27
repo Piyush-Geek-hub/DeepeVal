@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import evalRoutes from "./routes/evalRoutes.js";
+import batchRoutes from "./routes/batchRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,6 +32,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Mount evaluation routes (from evalRoutes.ts)
 app.use("/api", evalRoutes);
+
+// Mount batch evaluation routes (from batchRoutes.ts)
+app.use("/api", batchRoutes);
 
 // ============================================
 // HEALTH CHECK

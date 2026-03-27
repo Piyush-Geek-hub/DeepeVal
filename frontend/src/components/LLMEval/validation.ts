@@ -21,9 +21,16 @@ export const validateForm = (formData: FormState): FormValidationErrors => {
     }
   }
 
+  // RAGAS requires expected_output (composite metric)
+  if (formData.metric === 'ragas') {
+    if (!formData.expected_output || !formData.expected_output.trim()) {
+      errors.expected_output = 'Expected output is required for RAGAS metric (reference/ground truth answer)';
+    }
+  }
+
   // Validate context (required for specific metrics)
   const validContexts = formData.context.filter((ctx) => ctx && ctx.trim().length > 0);
-  const metricsRequiringContext = ['faithfulness', 'contextual_precision', 'contextual_recall', 'hallucination'];
+  const metricsRequiringContext = ['faithfulness', 'contextual_precision', 'contextual_recall', 'hallucination', 'ragas'];
   
   if (metricsRequiringContext.includes(formData.metric)) {
     if (validContexts.length === 0) {
@@ -51,18 +58,18 @@ export const isFormValid = (errors: FormValidationErrors): boolean => {
 };
 
 /**
- * Get available metrics for DeepEval provider
+ * Get available metrics for DeepEval provider (includes RAGAS)
  */
 export const getMetricsForProvider = (): string[] => {
-  return ['faithfulness', 'answer_relevancy', 'contextual_precision', 'contextual_recall', 'pii_leakage', 'bias', 'hallucination'];
+  return ['faithfulness', 'answer_relevancy', 'contextual_precision', 'contextual_recall', 'pii_leakage', 'bias', 'hallucination', 'ragas'];
 };
 
 /**
  * Check if expected_output field should be shown
  */
 export const shouldShowExpectedOutput = (metric: string): boolean => {
-  // contextual_precision and contextual_recall require expected_output
-  return metric === 'contextual_precision' || metric === 'contextual_recall';
+  // contextual_precision, contextual_recall, and ragas require expected_output
+  return metric === 'contextual_precision' || metric === 'contextual_recall' || metric === 'ragas';
 };
 
 /**
@@ -79,9 +86,17 @@ export const shouldShowLLMOutput = (metric: string): boolean => {
  * Check if context field is required for the metric
  */
 export const isContextRequired = (metric: string): boolean => {
-  // Context is required for: faithfulness, contextual_precision, contextual_recall, hallucination
+  // Context is required for: faithfulness, contextual_precision, contextual_recall, hallucination, ragas
   // Context is optional for: answer_relevancy, pii_leakage, bias
-  const metricsRequiringContext = ['faithfulness', 'contextual_precision', 'contextual_recall', 'hallucination'];
+  const metricsRequiringContext = ['faithfulness', 'contextual_precision', 'contextual_recall', 'hallucination', 'ragas'];
   return metricsRequiringContext.includes(metric);
+};
+
+/**
+ * Check if expected_output is required for the metric
+ */
+export const isExpectedOutputRequired = (metric: string): boolean => {
+  // required for: contextual_precision, contextual_recall, ragas
+  return metric === 'contextual_precision' || metric === 'contextual_recall' || metric === 'ragas';
 };
 

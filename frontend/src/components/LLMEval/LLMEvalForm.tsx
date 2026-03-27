@@ -144,8 +144,37 @@ export const LLMEvalForm: React.FC<LLMEvalFormProps> = ({ onEvaluate }) => {
       {/* Active Provider Info */}
       <div className="provider-info deepeval">
         <p>
-          ✓ <strong>DeepEval</strong> - Metrics: Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, PII Leakage, Bias, Hallucination
+          ✓ <strong>DeepEval + RAGAS</strong> - Metrics: Faithfulness, Answer Relevancy, Contextual Precision, Contextual Recall, PII Leakage, Bias, Hallucination, RAGAS
         </p>
+        <details style={{ marginTop: '0.8em', fontSize: '0.9em' }}>
+          <summary style={{ cursor: 'pointer', color: '#666', fontWeight: '500' }}>
+            📚 Metric Help & Examples
+          </summary>
+          <div style={{ marginTop: '0.8em', padding: '0.8em', backgroundColor: '#f9f9f9', borderRadius: '4px', lineHeight: '1.6' }}>
+            <div style={{ marginBottom: '0.8em' }}>
+              <strong>✓ Faithfulness:</strong> Evaluates if the LLM output is faithful to the retrieved context. Requires: query, output, context.
+            </div>
+            <div style={{ marginBottom: '0.8em' }}>
+              <strong>✓ Answer Relevancy:</strong> Evaluates if the LLM output addresses the user's query. Requires: query, output.
+            </div>
+            <div style={{ marginBottom: '0.8em' }}>
+              <strong>✓ Contextual Precision:</strong> After Retrieval - Evaluates if retrieved docs are relevant to the query. Requires: query, context, expected_output. (Output is optional)
+            </div>
+            <div style={{ marginBottom: '0.8em' }}>
+              <strong>✓ Contextual Recall:</strong> After Retrieval - Evaluates if retrieved context has all info needed to answer the expected output. Requires: context, expected_output. (Output and query are optional)
+              <br />
+              <span style={{ fontSize: '0.9em', color: '#555' }}>Example: Query="Salesforce login issues?", Expected="Steps to resolve: verify username, reset password..."</span>
+            </div>
+            <div style={{ marginBottom: '0.8em' }}>
+              <strong>✓ RAGAS:</strong> Composite RAG metric combining Faithfulness + Contextual Precision + Contextual Recall. Requires: query, context, expected_output, output.
+              <br />
+              <span style={{ fontSize: '0.9em', color: '#555' }}>Best for: End-to-end RAG pipeline evaluation with ground truth.</span>
+            </div>
+            <div style={{ marginBottom: '0.8em' }}>
+              <strong>✓ PII Leakage, Bias, Hallucination:</strong> Additional quality metrics. See form labels for field requirements.
+            </div>
+          </div>
+        </details>
       </div>
 
       {/* Metric Dropdown */}

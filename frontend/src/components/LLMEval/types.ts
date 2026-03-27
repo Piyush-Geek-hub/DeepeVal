@@ -1,5 +1,5 @@
 /**
- * DeepEval Metric types
+ * DeepEval & RAGAS Metric types
  * - faithfulness: Output faithful to context
  * - answer_relevancy: Output relevant to query
  * - contextual_precision: Relevant nodes ranked higher than irrelevant nodes
@@ -7,6 +7,7 @@
  * - pii_leakage: Detects personally identifiable information in output
  * - bias: Detects bias in LLM outputs
  * - hallucination: Detects hallucinations in LLM outputs by comparing with context
+ * - ragas: Composite RAG metric (combines faithfulness, contextual_precision, contextual_recall)
  */
 export type MetricOption =
   | 'faithfulness'
@@ -15,7 +16,8 @@ export type MetricOption =
   | 'contextual_recall'
   | 'pii_leakage'
   | 'bias'
-  | 'hallucination';
+  | 'hallucination'
+  | 'ragas';
 
 /**
  * LLM Evaluation provider type

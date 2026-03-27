@@ -1,0 +1,90 @@
+/* App Navigation Styles */
+
+.app-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.app-nav {
+  background-color: #2c3e50;
+  border-bottom: 3px solid #d4a574;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-nav-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  gap: 0;
+}
+
+.nav-tab {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  border: none;
+  background-color: transparent;
+  color: #b0bec5;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  text-align: center;
+}
+
+.nav-tab:hover {
+  background-color: rgba(212, 165, 116, 0.1);
+  color: #d4a574;
+}
+
+.nav-tab.active {
+  color: #d4a574;
+  background-color: rgba(212, 165, 116, 0.05);
+  border-bottom-color: #d4a574;
+}
+
+.app-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-nav-content {
+    flex-direction: column;
+  }
+
+  .nav-tab {
+    border-bottom: none;
+    border-left: 3px solid transparent;
+    text-align: left;
+  }
+
+  .nav-tab.active {
+    border-left-color: #d4a574;
+    border-bottom-color: transparent;
+  }
+
+  .nav-tab:hover {
+    border-left-color: #d4a574;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-tab {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
